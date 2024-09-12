@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+
+  db-disruptive:
+    image: mongo:6.0.6
+    restart: always
+    volumes:
+      - ./volume:/data/db
+    ports:
+      - 27017:27017
+    env_file:
+      - ../../.env
