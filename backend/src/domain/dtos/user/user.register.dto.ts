@@ -2,7 +2,7 @@ import { ROLE } from '@shared/enum/roles';
 import { z } from 'zod';
 import { ObjectId } from 'mongodb';
 import { StringAny } from '@src/shared/domain/KeyValue';
-
+import regex from '@src/config/regex';
 const userRegisterSchema = z.object( {
   role: z.nativeEnum( ROLE, {
     required_error: "Role is required",
@@ -11,7 +11,7 @@ const userRegisterSchema = z.object( {
   alias: z.string( {
     required_error: "alias is required",
     invalid_type_error: "Invalid alias"
-  } ).regex( /^[a-zA-Z0-9._#]{3,20}$/ ),
+  } ).regex( regex.NAME_REGEX ),
   email: z.string( {
     required_error: "Email is required",
     invalid_type_error: "Invalid format email"
@@ -32,7 +32,6 @@ export class UserRegisterDto {
     return [ undefined, new UserRegisterDto( role, alias, email ) ];
   }
 
-  static validateId = ( id: string ): boolean => ObjectId.isValid( id );
   static validatePartialUser( input: StringAny ): [ string?, UserRegisterDto?] {
     const { role, alias, email } = input;
     const validate = userRegisterSchema.partial().safeParse( input );

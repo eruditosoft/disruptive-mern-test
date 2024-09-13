@@ -5,6 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { HandleError } from '@presentation/handle.error';
 import endpoints from '@config/endpoints';
 import { UseCaseUser } from '@useCases/user.usecase';
+import {CommonDto} from "@shared/domain/commonDto";
 
 export class UserController {
   constructor( private readonly log: Logger, private readonly useCase: UseCaseUser ) { }
@@ -26,7 +27,7 @@ export class UserController {
 
   update = ( req: Request, resp: Response ) => {
     const id = req.params.id;
-    if ( !id || !UserRegisterDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
+    if ( !id || !CommonDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
     const [ error, userRegisterDto ] = UserRegisterDto.validatePartialUser( req.body );
     if ( error ) {
       this.log.error( "UserUpdate", JSON.parse( error ) );
@@ -68,7 +69,7 @@ export class UserController {
   delete = ( req: Request, resp: Response ) => {
     const id = req.params.id;
 
-    if ( !id || !UserRegisterDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
+    if ( !id || !CommonDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
 
     return this.useCase.delete( id )
       .then( () => {

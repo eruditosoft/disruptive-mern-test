@@ -1,26 +1,49 @@
-import { TopicDatasource } from '@domain/datasources/topic.datasource';
-import { TopicModel } from '@src/data/mongo/model/topic.model ';
-import { TopicRegisterDto } from '@src/domain/dtos/topic/topic.register.dto';
-import { TopicEntity } from '@src/domain/entity/topic/topic.entity';
-import { TopicMapper } from '@src/infrastructure/mappers/topic.mapper';
-import { CommonError } from '@src/shared/domain/CommonError';
-import { StatusCodes } from 'http-status-codes';
+import {TopicDatasource} from '@domain/datasources/topic.datasource';
+import {TopicModel} from '@data/mongo/model/topic.model';
+import {TopicRegisterDto} from '@domain/dtos/topic/topic.register.dto';
+import {TopicEntity} from '@domain/entity/topic/topic.entity';
+import {TopicMapper} from '@infrastructure/mappers/topic.mapper';
+import {CommonError} from '@shared/domain/CommonError';
+import {StatusCodes} from 'http-status-codes';
+import {Promise} from "mongoose";
 
 export class MongoTopicDatasourceImpl implements TopicDatasource {
-  async register( input: TopicRegisterDto ): Promise<TopicEntity> {
-    const { name, image, categories } = input;
-    try {
-      const existTopic = await TopicModel.findOne( { name } );
-      if ( existTopic ) throw new CommonError( "Invalid request name topic exists", StatusCodes.BAD_REQUEST, "Invalid Request, name topic exists", true );
-      const newTopic = await TopicModel.create( {
-        name, image, categories,
-      } );
-      return TopicMapper.entityFromObject( newTopic );
-    } catch ( error ) {
-      CommonError.handleError( error );
+    async delete(id: string): Promise<void> {
+        try {
+            const topicDeleted = await TopicModel.findByIdAndDelete(id);
+            if (!topicDeleted) throw new CommonError("topic not exist", StatusCodes.BAD_REQUEST, "topic not deleted success", true);
+            return;
+        } catch (error) {
+            CommonError.handleError(error);
+        }
     }
-  }
+
+    async register(input: TopicRegisterDto): Promise<TopicEntity> {
+        const {name, image, categories} = input;
+        try {
+            const existTopic = await TopicModel.findOne({name});
+            if (existTopic) throw new CommonError("Invalid request name topic exists", StatusCodes.BAD_REQUEST, "Invalid Request, name topic exists", true);
+            const newTopic = await TopicModel.create({
+                name, image, categories,
+            });
+            return TopicMapper.entityFromObject(newTopic);
+        } catch (error) {
+
+            CommonError.handleError(error);
+        }
+    }
+
+    async findById(topicId: string): Promise<TopicEntity> {
+        try {
+            const topic = await TopicModel.findById(topicId);
+            if (!topic) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "topic not register", true);
+            return TopicMapper.entityFromObject(topic);
+        } catch (error) {
+            CommonError.handleError(error);
+        }
+    }
 }
+
 /*
   async update( id: string, name: string ): Promise<CategoryEntity> {
     try {

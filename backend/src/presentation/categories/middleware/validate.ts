@@ -3,6 +3,7 @@ import Logger from '@src/shared/domain/Logger';
 import { PinoLogger } from '@src/shared/infraestructure/logger/pinoLogger/pinoLogger';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import {CommonDto} from "@shared/domain/commonDto";
 
 export class ValidateCategory {
 
@@ -13,7 +14,7 @@ export class ValidateCategory {
       log.error( "missing id" );
       return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "Header id is required" } );
     }
-    if ( !UserRegisterDto.validateId( id as string ) ) {
+    if ( !CommonDto.validateId( id as string ) ) {
       log.error( "invalid format id" );
       return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "Invalid format id" } );
     }

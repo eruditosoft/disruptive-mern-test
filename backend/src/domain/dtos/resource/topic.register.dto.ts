@@ -2,31 +2,30 @@ import { CATEGORIES } from '@shared/enum/categories';
 import { StringAny } from '@shared/domain/KeyValue';
 import { z } from 'zod';
 
-export const topicRegisterSchema = z.object( {
+export const resourceRegisterSchema = z.object( {
   name: z.string( {
     required_error: "Name is required",
     invalid_type_error: "Name not valid"
   } ).min( 3, 'min length 3' )
     .max( 20, 'max length is 20' ),
-  categories: z.array(
-    z.nativeEnum( CATEGORIES ),
-    {
-      required_error: 'category is required.',
-      invalid_type_error: 'category must be an array of enum category'
-    }
-  ),
-  image: z.string(),
-
+  content: z.string( {
+    required_error: "content is required",
+    invalid_type_error: "invalid content"
+  } ),
+  category: z.nativeEnum( CATEGORIES, {
+    required_error: "Category is required",
+    invalid_type_error: "Invalid type category"
+  } ),
 } );
 
-export class TopicRegisterDto {
-  private constructor( public categories: [ CATEGORIES ],
-    public name: string, public image: string ) { }
-  static createTopicDto( input: StringAny ): [ string?, TopicRegisterDto?] {
-    const { name, categories, image } = input;
-    const validate = topicRegisterSchema.safeParse( input );
+export class ResourceRegisterDto {
+  private constructor( public category: CATEGORIES,
+    public name: string, public content: string ) { }
+  static createResourceDto( input: StringAny ): [ string?, ResourceRegisterDto?] {
+    const { name, category, content } = input;
+    const validate = resourceRegisterSchema.safeParse( input );
     if ( validate.error ) return [ validate.error.message ];
-    return [ undefined, new TopicRegisterDto( categories, name, image ) ];
+    return [ undefined, new ResourceRegisterDto( category, name, content ) ];
   }
 }
 /*

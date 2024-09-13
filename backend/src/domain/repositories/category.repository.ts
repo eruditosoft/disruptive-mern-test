@@ -7,4 +7,5 @@ export abstract class CategoryRepository {
   abstract delete( id: string ): Promise<void>;
   abstract findAll( query: QueryCategoryDto ): Promise<CategoryEntity[]>;
   abstract register( categoryRegister: CategoryRegisterDto, userId: string ): Promise<CategoryEntity>;
+  abstract findById(categoryId: string):Promise<CategoryEntity>;
 }

@@ -1,4 +1,4 @@
-import { ROLE } from '@src/shared/enum/roles';
+import { ROLE } from '@shared/enum/roles';
 import { envs } from './envs';
 
 export default {
@@ -14,7 +14,8 @@ export default {
   },
   resource: {
     root: `${ envs.VERSION_API }resource`,
-    findAll: `/find`,
+    findAll: "/find",
+    register: "/:userId/:topicId"
   },
   topic: {
     root: `${ envs.VERSION_API }topic`,

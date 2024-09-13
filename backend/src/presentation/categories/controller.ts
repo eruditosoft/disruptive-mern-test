@@ -7,12 +7,13 @@ import { HandleError } from '@presentation/handle.error';
 import endpoints from '@config/endpoints';
 import { QueryCategoryDto } from '@domain/dtos/query/query.category.dto';
 import { UserRegisterDto } from '@domain/dtos/user/user.register.dto';
+import {CommonDto} from "@shared/domain/commonDto";
 
 export class CategoryController {
   constructor( private readonly log: Logger, private useCase: UseCaseCategory ) { }
   udpate = ( req: Request, resp: Response ) => {
     const id = req.params.id;
-    if ( !id || !UserRegisterDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
+    if ( !id || !CommonDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
     const [ error, name ] = CategoryRegisterDto.validatePartialCategory( req.body );
     if ( error ) {
       this.log.error( "UserUpdate", JSON.parse( error ) );
@@ -68,12 +69,12 @@ export class CategoryController {
   delete = ( req: Request, resp: Response ) => {
     const id = req.params.id;
 
-    if ( !id || !UserRegisterDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid category id" } );
+    if ( !id || !CommonDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid category id" } );
 
     return this.useCase.delete( id )
       .then( () => {
         this.log.info( `success complete call endpoint ${ endpoints.user.root }`, { id: id, method: 'DELETE' } );
-        return resp.status( StatusCodes.NO_CONTENT ).send();
+        return resp.sendStatus( StatusCodes.NO_CONTENT );
       } )
       .catch( ( error ) => {
         this.log.error( error );
