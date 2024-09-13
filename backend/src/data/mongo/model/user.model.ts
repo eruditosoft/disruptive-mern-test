@@ -14,7 +14,7 @@ const userSchema = new Schema( {
     unique: true,
   },
   role: {
-    type: [ String ],
+    type:  String,
     default: ROLE.READERS,
     enum: ROLE,
   },

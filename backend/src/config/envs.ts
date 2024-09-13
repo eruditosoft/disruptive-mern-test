@@ -16,5 +16,11 @@ export const envs = {
   VERSION_API: getValue( "VERSION_API" ),
   encrypt: {
     SECRET_KEY: getValue( "SECRET_KEY" ),
+    EXPIRATION: getValue( "EXPIRATION" ),
+  },
+  pagination: {
+    PAGE: get( "PAGE" ).asInt(),
+    CHUNK: get( "CHUNK" ).asInt(),
+    MAX_CHUNK: get( "MAX_CHUNK" ).asInt(),
   }
 };

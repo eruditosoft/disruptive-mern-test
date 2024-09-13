@@ -35,6 +35,12 @@
       "@data/*": [
         "src/data/*"
       ],
+      "@useCases/*": [
+        "src/useCases/*"
+      ],
+      "@presentation/*": [
+        "src/presentation/*"
+      ],
       "tsoa": [
         "node_modules/tsoa/dist"
       ],

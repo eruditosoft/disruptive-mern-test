@@ -11,14 +11,18 @@ export class CommonError extends Error {
     description: string,
     isOperational: boolean,
   ) {
-    super(description);
+    super( description );
 
-    Object.setPrototypeOf(this, new.target.prototype);
+    Object.setPrototypeOf( this, new.target.prototype );
     this.name = name;
     this.httpCode = httpCode;
     this.isOperational = isOperational;
 
-    Error.captureStackTrace(this);
+    Error.captureStackTrace( this );
 
+  }
+  static handleError( error: unknown ): never {
+    if ( error instanceof CommonError ) throw error;
+    throw new Error( "Error disruptive" );
   }
 }
