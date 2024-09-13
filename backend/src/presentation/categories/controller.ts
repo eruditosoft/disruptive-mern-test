@@ -9,6 +9,7 @@ import { QueryCategoryDto } from '@domain/dtos/query/query.category.dto';
 import { UserRegisterDto } from '@domain/dtos/user/user.register.dto';
 
 export class CategoryController {
+  constructor( private readonly log: Logger, private useCase: UseCaseCategory ) { }
   udpate = ( req: Request, resp: Response ) => {
     const id = req.params.id;
     if ( !id || !UserRegisterDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
@@ -31,7 +32,6 @@ export class CategoryController {
       } );
 
   };
-  constructor( private readonly log: Logger, private useCase: UseCaseCategory ) { }
   findAll = ( req: Request, resp: Response ) => {
     const query = QueryCategoryDto.createQueryDto( req.body );
     console.log( query );

@@ -6,6 +6,6 @@ export class TopicEntity {
     public name: string,
     public categories: [ CATEGORIES ],
     public createdAt: string,
-    public avatar: string,
+    public image: string,
   ) { }
 }

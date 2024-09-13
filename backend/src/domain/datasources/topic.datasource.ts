@@ -1,11 +1,10 @@
-import { CategoryRegisterDto } from '@domain/dtos/category/category.register.dto';
-import { CategoryEntity } from '@domain/entity/category/category.entity';
-import { QueryCategoryDto } from '@domain/dtos/query/query.category.dto';
+import { TopicRegisterDto } from '../dtos/topic/topic.register.dto';
+import { TopicEntity } from '../entity/topic/topic.entity';
 
-
-export abstract class CategoryDatasource {
-  abstract update( id: string, name: string ): Promise<CategoryEntity>;
-  abstract delete( id: string ): Promise<void>;
-  abstract register( categoryRegister: CategoryRegisterDto, userId: string ): Promise<CategoryEntity>;
-  abstract findAll( query: QueryCategoryDto ): Promise<CategoryEntity[]>;
+export abstract class TopicDatasource {
+  abstract register( input: TopicRegisterDto ): Promise<TopicEntity>;
+  /*   abstract update( id: string, name: string ): Promise<CategoryEntity>;
+    abstract delete( id: string ): Promise<void>;
+    abstract register( categoryRegister: CategoryRegisterDto, userId: string ): Promise<CategoryEntity>;
+    abstract findAll( query: QueryCategoryDto ): Promise<CategoryEntity[]>; */
 }

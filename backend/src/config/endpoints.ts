@@ -12,12 +12,20 @@ export default {
     root: `${ envs.VERSION_API }category`,
     findAll: `/find`,
   },
+  resource: {
+    root: `${ envs.VERSION_API }resource`,
+    findAll: `/find`,
+  },
+  topic: {
+    root: `${ envs.VERSION_API }topic`,
+    findAll: `/find`,
+  },
   health: `${ envs.VERSION_API }health`
 };
 
 export const permissions = {
-  [ROLE.READERS]: [
-    
+  [ ROLE.READERS ]: [
+
   ]
-  
-}
+
+};
