@@ -14,13 +14,15 @@ import {TopicDatasource} from '@domain/datasources/topic.datasource';
 import {MongoTopicDatasourceImpl} from '@infrastructure/datasources/mongo/mongo.topic.datosurce.impl';
 import {TopicRepository} from '@domain/repositories/topic.repository';
 import {TopicRepositoryImpl} from '@infrastructure/repository/topic.repository.impl';
-import {ResourceDatasource} from '@domain/datasources/resource.datasource ';
-import {MongoResourceDatasourceImpl} from '@infrastructure/datasources/mongo/mongo.resource.datosurce.impl';
-import {ResourceRepository} from '@domain/repositories/resource.repository ';
+import {ResourceDatasource} from '@domain/datasources/resource.datasource';
+import {MongoResourceDatasourceImpl} from '@infrastructure/datasources/mongo/mongo.resource.datasource.impl';
+import {ResourceRepository} from '@domain/repositories/resource.repository';
 import {ResourceRepositoryImpl} from '@infrastructure/repository/resource.repository.impl';
 import {UseCaseResource} from '@useCases/resource.usecase';
 import {UseCaseResourceImpl} from '@useCases/impl/resource.usecase.impl';
-import endpoints from '@src/config/endpoints';
+import endpoints from '@config/endpoints';
+import {QueryMiddleware} from "@presentation/middleware/query.middleware";
+import {ValidateMiddleware} from "@presentation/middleware/validate.middleware";
 
 
 export class ResourceRouter {
@@ -41,11 +43,10 @@ export class ResourceRouter {
         const router = Router();
         const log: Logger = new PinoLogger();
         const controller = new ResourceController(log, useCase);
-    console.log("entro")
         router.post(endpoints.resource.register, controller.register);
         router.delete(endpoints.id, controller.delete);
-
-
+        router.post(endpoints.findAll, QueryMiddleware.setDefaultQuery, controller.findAll);
+        router.put(endpoints.id, ValidateMiddleware.validateUpdateName, controller.udpate);
         return router;
 
     }

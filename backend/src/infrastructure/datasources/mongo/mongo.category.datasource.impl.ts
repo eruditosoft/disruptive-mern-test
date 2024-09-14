@@ -5,15 +5,14 @@ import {CategoryEntity} from '@domain/entity/category/category.entity';
 import {CommonError} from '@shared/domain/CommonError';
 import {StatusCodes} from 'http-status-codes';
 import {CategoryMapper} from '@infrastructure/mappers/category.mapper';
-import {QueryCategoryDto} from '@domain/dtos/query/query.category.dto';
 import {StringAny} from '@shared/domain/KeyValue';
-import {Promise} from "mongoose";
+import {QueryDto} from "@domain/dtos/query/query.dto";
 
 
 export class MongoCategoryDatasourceImpl implements CategoryDatasource {
-    async update(id: string, name: string): Promise<CategoryEntity> {
+    async update(id: string, body: StringAny): Promise<CategoryEntity> {
         try {
-            const categoryUpdate = await CategoryModel.findByIdAndUpdate(id, {$set: {name}});
+            const categoryUpdate = await CategoryModel.findByIdAndUpdate(id, {$set: body}, {new: true});
             return CategoryMapper.entityFromObject(categoryUpdate as StringAny);
         } catch (error) {
             CommonError.handleError(error);
@@ -30,10 +29,10 @@ export class MongoCategoryDatasourceImpl implements CategoryDatasource {
         }
     }
 
-    async findAll(query: QueryCategoryDto): Promise<CategoryEntity[]> {
+    async findAll(query: QueryDto): Promise<CategoryEntity[]> {
         try {
             const results = await CategoryModel
-                .find()
+                .find(query.filter ?? {})
                 .sort({[query.params]: query.sort})
                 .skip(query.page - 1)
                 .limit(query.chunk);

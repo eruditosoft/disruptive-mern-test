@@ -1,32 +1,42 @@
-import { ROLE } from '@shared/enum/roles';
-import { envs } from './envs';
+import {ROLE} from '@shared/enum/roles';
+import {envs} from './envs';
 
-export default {
-  id: "/:id",
-  root: "/",
-  user: {
-    root: `${ envs.VERSION_API }user`,
-    login: "/login",
-  },
-  category: {
-    root: `${ envs.VERSION_API }category`,
+const endpoints = {
+    id: "/:id",
+    root: "/",
     findAll: `/find`,
-  },
-  resource: {
-    root: `${ envs.VERSION_API }resource`,
-    findAll: "/find",
-    register: "/:userId/:topicId"
-  },
-  topic: {
-    root: `${ envs.VERSION_API }topic`,
-    findAll: `/find`,
-  },
-  health: `${ envs.VERSION_API }health`
+    login: `${envs.VERSION_API}login`,
+    user: {
+        root: `${envs.VERSION_API}user`,
+
+    },
+    category: {
+        root: `${envs.VERSION_API}category`,
+    },
+    resource: {
+        root: `${envs.VERSION_API}resource`,
+        register: "/:userId/:topicId"
+    },
+    topic: {
+        root: `${envs.VERSION_API}topic`,
+    },
+    health: `${envs.VERSION_API}health`
 };
-
+export default endpoints;
+const defaultUrl = [
+    endpoints.topic.root, endpoints.resource.root,
+    endpoints.category.root, endpoints.topic.root.concat(endpoints.findAll),
+    endpoints.resource.root.concat(endpoints.findAll), endpoints.category.root.concat(endpoints.findAll),
+    endpoints.topic.root.concat(endpoints.id),
+    endpoints.resource.root.concat(endpoints.id), endpoints.category.root.concat(endpoints.id)
+]
 export const permissions = {
-  [ ROLE.READERS ]: [
-
-  ]
-
+    [ROLE.READERS]: {
+        GET: defaultUrl
+    },
+    [ROLE.CREATORS]: {
+        GET: defaultUrl,
+        POST: defaultUrl,
+        PUT: defaultUrl
+    }
 };

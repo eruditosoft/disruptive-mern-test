@@ -3,5 +3,5 @@ export default interface KeyValue {
 }
 
 export interface StringAny {
-  [ key: string ]: any;
+  [ key: string ]: string | any;
 }

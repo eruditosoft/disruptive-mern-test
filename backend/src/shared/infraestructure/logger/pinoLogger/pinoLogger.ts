@@ -8,25 +8,29 @@ import config from './config';
  */
 
 export class PinoLogger implements Logger {
-  private readonly log;
-  constructor() {
-    this.log = pino( config );
-  }
-  info( message: string, attributes?: KeyValue ): void {
-    if ( attributes )
-      this.log.info( { attributes: { ...attributes } }, message );
-    else
-      this.log.info( message );
-  }
-  warn( message: string, attributes?: KeyValue ): void {
-    if ( attributes )
-      this.log.warn( { attributes: { ...attributes } }, message );
-    else
-      this.log.warn( message );
-  }
-  error( message: string, attributes?: unknown ): void {
-    if ( attributes ) this.log.error( attributes, message );
-    else this.log.error( message );
-  }
+    private readonly log;
+
+    constructor() {
+        this.log = pino(config);
+    }
+
+    info(message: string, attributes?: KeyValue): void {
+        if (attributes)
+            this.log.info({attributes: {...attributes}}, message);
+        else
+            this.log.info(message);
+    }
+
+    warn(message: string, attributes?: KeyValue): void {
+        if (attributes)
+            this.log.warn({attributes: {...attributes}}, message);
+        else
+            this.log.warn(message);
+    }
+
+    error(message: string, attributes?: unknown): void {
+        if (attributes) this.log.error(attributes, message);
+        else this.log.error(message);
+    }
 }
 

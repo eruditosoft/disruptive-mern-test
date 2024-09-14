@@ -5,21 +5,25 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #000;
+  background-color: #1a1b1f;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
 }
 
 #root {
-  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  width: 100%;
+  min-height:90vh;
+  min-width: 90vw;
+  background-color: #1a1b1f;
+  display: grid;
+  place-items: center;
 }
 
 body {
@@ -40,9 +44,14 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  box-shadow: -4px 6px 15px -5px rgba(0,0,0,0.71);
+  border-color: rgba(255, 255, 255, 0.87);
+  min-width: 30%;
+
 }
 button:hover {
   border-color: #646cff;
+  box-shadow: -4px 6px 20px 7px rgba(0,0,0,0.71);
 }
 button:focus,
 button:focus-visible {

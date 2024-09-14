@@ -14,13 +14,15 @@ import {UserRepositoryImpl} from '@infrastructure/repository/user.repository.imp
 import {TopicDatasource} from '@domain/datasources/topic.datasource';
 import {MongoTopicDatasourceImpl} from '@infrastructure/datasources/mongo/mongo.topic.datosurce.impl';
 import {TopicRepository} from '@domain/repositories/topic.repository';
-import {TopicRepositoryImpl} from '@src/infrastructure/repository/topic.repository.impl';
-import {UseCaseTopic} from '@src/useCases/topic.usecase';
-import {UseCaseTopicImpl} from '@src/useCases/impl/topic.usecase.impl';
-import {ResourceDatasource} from "@domain/datasources/resource.datasource ";
-import {MongoResourceDatasourceImpl} from "@infrastructure/datasources/mongo/mongo.resource.datosurce.impl";
-import {ResourceRepository} from "@domain/repositories/resource.repository ";
+import {TopicRepositoryImpl} from '@infrastructure/repository/topic.repository.impl';
+import {UseCaseTopic} from '@useCases/topic.usecase';
+import {UseCaseTopicImpl} from '@useCases/impl/topic.usecase.impl';
+import {ResourceDatasource} from "@domain/datasources/resource.datasource";
+import {MongoResourceDatasourceImpl} from "@infrastructure/datasources/mongo/mongo.resource.datasource.impl";
+import {ResourceRepository} from "@domain/repositories/resource.repository";
 import {ResourceRepositoryImpl} from "@infrastructure/repository/resource.repository.impl";
+import {QueryMiddleware} from "@presentation/middleware/query.middleware";
+import {ValidateMiddleware} from "@presentation/middleware/validate.middleware";
 
 
 export class TopicRouter {
@@ -41,6 +43,8 @@ export class TopicRouter {
         const controller = new TopicController(log, useCase);
         router.post(endpoints.root, controller.register);
         router.delete(endpoints.id, controller.delete);
+        router.post( endpoints.findAll, QueryMiddleware.setDefaultQuery, controller.findAll );
+        router.put(endpoints.id, ValidateMiddleware.validateUpdateName, controller.udpate);
         return router;
 
     }

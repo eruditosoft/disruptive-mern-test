@@ -5,8 +5,8 @@ import {UseCaseTopic} from '@useCases/topic.usecase';
 import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {HandleError} from '@presentation/handle.error';
-import {UserRegisterDto} from "@domain/dtos/user/user.register.dto";
 import {CommonDto} from "@shared/domain/commonDto";
+import {QueryDto} from "@domain/dtos/query/query.dto";
 
 export class TopicController {
     constructor(private readonly log: Logger, private useCase: UseCaseTopic) {
@@ -34,34 +34,48 @@ export class TopicController {
         const id = req.params.id;
 
         if (!id || !CommonDto.validateId(id)) return resp.status(StatusCodes.BAD_REQUEST).json({error: "invalid topic id"});
-        return this.useCase.delete( id )
-            .then( () => {
-                this.log.info( `success complete call endpoint ${ endpoints.topic.root }`, { id: id, method: 'DELETE' } );
-                return resp.sendStatus( StatusCodes.NO_CONTENT );
+        return this.useCase.delete(id)
+            .then(() => {
+                this.log.info(`success complete call endpoint ${endpoints.topic.root}`, {id: id, method: 'DELETE'});
+                return resp.sendStatus(StatusCodes.NO_CONTENT);
+            })
+            .catch((error) => {
+                this.log.error(error);
+                return HandleError.handleError(error, resp);
+            });
+    };
+
+    findAll = (req: Request, resp: Response) => {
+        const query = QueryDto.createQueryDto(req.body);
+        this.log.info(`Initial call endpoint`, {body: req.body});
+        return this.useCase.findAll(query!).then((resource) => {
+            this.log.info(`success complete call endpoint ${endpoints.topic.root}/find`, {
+                method: 'POST',
+                query: JSON.stringify(query),
+            });
+            return resp.json(resource).status(StatusCodes.CREATED);
+        }).catch((error) => {
+            this.log.error(error);
+            return HandleError.handleError(error, resp);
+        });
+    };
+
+    udpate = ( req: Request, resp: Response ) => {
+        const id = req.params.id;
+        this.log.info( `Initial call endpoint ${ endpoints.topic.root }`, req.body );
+        return this.useCase.update( id, req.body! )
+            .then( ( user ) => {
+                this.log.info( `success complete call endpoint ${ endpoints.topic.root }`, {
+                    id, method: 'PUT'
+                } );
+                return resp.json( user ).status( StatusCodes.OK );
             } )
             .catch( ( error ) => {
                 this.log.error( error );
                 return HandleError.handleError( error, resp );
             } );
+
     };
+
 }
 
-/*
-  register = ( req: Request, resp: Response ) => {
-    const id = req.headers[ "user_id" ] as string;
-    const [ error, categoryRegister ] = CategoryRegisterDto.createCategoryDto( req.body );
-    if ( error ) {
-      this.log.error( error );
-      return resp.status( StatusCodes.BAD_REQUEST ).json( { error: JSON.parse( error ) } );
-    }
-    this.log.info( `Initial call endpoint`, req.body );
-    return this.useCase.register( categoryRegister!, id ).then( ( category ) => {
-      this.log.info( `success complete call endpoint ${ endpoints.category.root }`, {
-        method: 'POST',
-      } );
-      return resp.json( category ).status( StatusCodes.CREATED );
-    } ).catch( ( error ) => {
-      this.log.error( error );
-      return HandleError.handleError( error, resp );
-    } );
-  };*/

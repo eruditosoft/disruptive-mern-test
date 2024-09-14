@@ -1,5 +1,5 @@
-import { CategoryEntity } from '../category/category.entity';
-import { UserEntity } from '../user/user.entity';
+import { CategoryEntity } from '@domain/entity/category/category.entity';
+import { UserEntity } from '@src/domain/entity/user/user.entity';
 
 export class UserCategoryEntity {
   constructor(

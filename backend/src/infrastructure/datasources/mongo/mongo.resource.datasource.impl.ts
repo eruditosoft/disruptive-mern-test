@@ -1,12 +1,12 @@
-import {ResourceDatasource} from '@domain/datasources/resource.datasource ';
+import {ResourceDatasource} from '@domain/datasources/resource.datasource';
 import {ResourceEntity} from '@domain/entity/resource/resource.entity';
-import {ResourceModel} from '@src/data/mongo/model/resource.model ';
+import {ResourceModel} from '@data/mongo/model/resource.model ';
 import {ResourceRegisterDto} from '@domain/dtos/resource/topic.register.dto';
 import {ResourceMapper} from '@infrastructure/mappers/resource.mapper';
 import {CommonError} from '@shared/domain/CommonError';
 import {StatusCodes} from 'http-status-codes';
-import {Promise} from "mongoose";
 import {StringAny} from "@shared/domain/KeyValue";
+import {QueryDto} from "@domain/dtos/query/query.dto";
 
 export class MongoResourceDatasourceImpl implements ResourceDatasource {
     async register(input: ResourceRegisterDto, topicId: string, userId: string): Promise<ResourceEntity> {
@@ -35,7 +35,7 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
     }
 
     async delete(params: StringAny): Promise<void> {
-        const { condition, id } = params;
+        const {condition, id} = params;
         if (condition) return await this.deleteByCodition(condition);
         try {
             const userDeleted = await ResourceModel.findByIdAndDelete(id);
@@ -46,7 +46,7 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
         }
     }
 
-     async deleteByCodition(params: StringAny): Promise<void> {
+    async deleteByCodition(params: StringAny): Promise<void> {
         try {
             const userDeleted = await ResourceModel.deleteMany(params);
             if (!userDeleted) throw new CommonError("resource id not exist", StatusCodes.BAD_REQUEST, "resource not deleted success", true);
@@ -56,19 +56,27 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
         }
     }
 
-}
+    async findAll(query: QueryDto): Promise<ResourceEntity[]> {
 
-/*
-  async register( categoryRegister: CategoryRegisterDto, creator: string ): Promise<CategoryEntity> {
-    const { name, type } = categoryRegister;
-    try {
-      const nameExist = await CategoryModel.findOne( { name } );
-      if ( nameExist ) throw new CommonError( "Invalid request name category exists", StatusCodes.BAD_REQUEST, "Invalid Request, name category exists", true );
-      const newCategory = await CategoryModel.create( {
-        type, name, creator,
-      } );
-      return CategoryMapper.entityFromObject( newCategory );
-    } catch ( error ) {
-      CommonError.handleError( error );
+        try {
+            const results = await ResourceModel
+                .find(query.filter ?? {})
+                .sort({[query.params]: query.sort});
+            /*      .skip(query.page - 1)
+                  .limit(query.chunk);*/
+            return results.map(ResourceMapper.entityFromObject);
+        } catch (error) {
+            CommonError.handleError(error);
+        }
     }
-  }*/
+
+    async update(id: string, name: string): Promise<ResourceEntity> {
+        try {
+            const categoryUpdate = await ResourceModel.findByIdAndUpdate(id, {$set: {name}});
+            return ResourceMapper.entityFromObject(categoryUpdate as StringAny);
+        } catch (error) {
+            CommonError.handleError(error);
+        }
+    }
+
+}

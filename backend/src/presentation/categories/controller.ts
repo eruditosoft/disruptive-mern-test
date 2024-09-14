@@ -1,27 +1,20 @@
-import { CategoryRegisterDto } from '@domain/dtos/category/category.register.dto';
+import {CategoryRegisterDto} from '@domain/dtos/category/category.register.dto';
 import Logger from '@shared/domain/Logger';
-import { UseCaseCategory } from '@useCases/category.usecase';
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import { HandleError } from '@presentation/handle.error';
+import {UseCaseCategory} from '@useCases/category.usecase';
+import {Request, Response} from 'express';
+import {StatusCodes} from 'http-status-codes';
+import {HandleError} from '@presentation/handle.error';
 import endpoints from '@config/endpoints';
-import { QueryCategoryDto } from '@domain/dtos/query/query.category.dto';
-import { UserRegisterDto } from '@domain/dtos/user/user.register.dto';
 import {CommonDto} from "@shared/domain/commonDto";
+import {QueryDto} from "@domain/dtos/query/query.dto";
 
 export class CategoryController {
   constructor( private readonly log: Logger, private useCase: UseCaseCategory ) { }
   udpate = ( req: Request, resp: Response ) => {
     const id = req.params.id;
-    if ( !id || !CommonDto.validateId( id ) ) return resp.status( StatusCodes.BAD_REQUEST ).json( { error: "invalid user id" } );
-    const [ error, name ] = CategoryRegisterDto.validatePartialCategory( req.body );
-    if ( error ) {
-      this.log.error( "UserUpdate", JSON.parse( error ) );
-      return resp.status( StatusCodes.BAD_REQUEST ).json( { error: JSON.parse( error ) } );
-    }
     this.log.info( `Initial call endpoint ${ endpoints.user.root }`, req.body );
-    return this.useCase.update( id, name! )
-      .then( ( user ) => {
+    return this.useCase.update(id, req.body!)
+        .then( ( user ) => {
         this.log.info( `success complete call endpoint ${ endpoints.user.root }`, {
           id, method: 'PUT'
         } );
@@ -34,8 +27,7 @@ export class CategoryController {
 
   };
   findAll = ( req: Request, resp: Response ) => {
-    const query = QueryCategoryDto.createQueryDto( req.body );
-    console.log( query );
+    const query = QueryDto.createQueryDto( req.body );
     this.log.info( `Initial call endpoint` );
     return this.useCase.findAll( query! ).then( ( category ) => {
       this.log.info( `success complete call endpoint ${ endpoints.category.root }/find`, {

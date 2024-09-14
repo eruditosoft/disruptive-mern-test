@@ -1,7 +1,7 @@
 import { UserRepository } from '@domain/repositories/user.repository';
-import { UserDatasource } from '@src/domain/datasources/user.datasource';
-import { UserRegisterDto } from '@src/domain/dtos/user/user.register.dto';
-import { UserEntity } from '@src/domain/entity/user/user.entity';
+import { UserDatasource } from '@domain/datasources/user.datasource';
+import { UserRegisterDto } from '@domain/dtos/user/user.register.dto';
+import { UserEntity } from '@domain/entity/user/user.entity';
 
 
 export class UserRepositoryImpl implements UserRepository {

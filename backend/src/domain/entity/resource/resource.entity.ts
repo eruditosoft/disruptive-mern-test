@@ -1,4 +1,4 @@
-import { CATEGORIES } from '@src/shared/enum/categories';
+import { CATEGORIES } from '@shared/enum/categories';
 
 export class ResourceEntity {
   constructor(
