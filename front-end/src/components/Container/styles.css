@@ -1,12 +1,10 @@
 .grid-content {
   display: grid;
-  width: 100%;
-  padding: 0;
-  padding: 2rem 0;
-  margin: 0;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: .5rem;
-
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
   justify-items: center;
+  margin: 0;
+  padding: 2rem 0;
+  width: 100%;
 
 }

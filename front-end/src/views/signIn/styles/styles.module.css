@@ -1,0 +1,14 @@
+.btn_container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+.mt_2 {
+    margin-top: 1rem;
+}
+
+.container_flex {
+    display:flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}

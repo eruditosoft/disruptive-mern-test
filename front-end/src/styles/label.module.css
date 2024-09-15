@@ -1,0 +1,15 @@
+.title {
+    font-weight: bold;
+    font-family: Roboto, cursive;
+    font-size: 2rem;
+    display: block;
+    padding: .2rem;
+    color: #7ABA7AFF;
+}
+.text_center {
+    text-align: center;
+}
+.text_right {
+    text-align: right;
+}
+

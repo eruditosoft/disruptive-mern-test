@@ -10,7 +10,7 @@ const resourceSchema = new Schema({
     },
     topicId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Topic'
+        ref: 'View'
     },
     createdAt: {
         type: Date,

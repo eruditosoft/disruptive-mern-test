@@ -19,7 +19,9 @@
     "@mui/styles": "^6.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "styled-components": "^6.1.13"
+    "react-pdf": "^9.1.0",
+    "styled-components": "^6.1.13",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

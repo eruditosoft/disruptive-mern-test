@@ -1,0 +1,13 @@
+.primary_input {
+    background-color: transparent;
+    color: #ffffff;
+    padding: .5rem;
+    font-size: 1.2rem;
+    min-width: 20rem;
+    border: 1px solid #ffffff;
+    border-radius: 2px;
+}
+.primary_input:focus {
+    color: #000;
+    background-color:  #e8f5e9;
+}
