@@ -4,3 +4,4 @@ logs/
 volume/
 dist/
 /.idea/
+/backend/uploads/
