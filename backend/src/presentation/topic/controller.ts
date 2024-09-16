@@ -33,7 +33,7 @@ export class TopicController {
     delete = (req: Request, resp: Response) => {
         const id = req.params.id;
 
-        if (!id || !CommonDto.validateId(id)) return resp.status(StatusCodes.BAD_REQUEST).json({error: "invalid topic id"});
+        if (!id || !CommonDto.validateId(id)) return resp.status(StatusCodes.BAD_REQUEST).json({error: "invalid Resource id"});
         return this.useCase.delete(id)
             .then(() => {
                 this.log.info(`success complete call endpoint ${endpoints.topic.root}`, {id: id, method: 'DELETE'});

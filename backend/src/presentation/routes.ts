@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express';
+import express, {Request, Response, Router} from 'express';
 import {UserRoutes} from './user/routes';
 import endpoints from '@config/endpoints';
 import {HealthRoutes} from './health/routes';
@@ -6,7 +6,8 @@ import {CategoryRouter} from './categories/routes';
 import {ResourceRouter} from './resource/routes';
 import {TopicRouter} from './topic/routes';
 import {AuthRoutes} from "@presentation/auth/routes";
-import {JwtAdapter} from "@config/jwt/jwt.adapter";
+import {UploadRoutes} from "@presentation/shared/upload/routes";
+import {envs} from "@config/envs";
 
 export class AppRoutes {
 
@@ -18,6 +19,7 @@ export class AppRoutes {
         router.use(endpoints.resource.root, ResourceRouter.routes);
         router.use(endpoints.topic.root, TopicRouter.routes);
         router.use(endpoints.login, AuthRoutes.routes);
+        router.use(endpoints.upload, UploadRoutes.routes);
         return router;
     }
 }

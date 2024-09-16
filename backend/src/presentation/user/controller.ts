@@ -11,22 +11,6 @@ export class UserController {
     constructor(private readonly log: Logger, private readonly useCase: UseCaseUser) {
     }
 
-    login = (req: Request, resp: Response) => {
-        const {email} = req.body;
-        if (!email) return resp.status(StatusCodes.BAD_REQUEST).json({error: "Email is required"});
-        return this.useCase.login(email)
-            .then((token) => {
-                this.log.info(`success complete call endpoint ${endpoints.user.root}/login`, {
-                    email, method: 'POST'
-                });
-                return resp.json({token}).status(StatusCodes.OK);
-            })
-            .catch((error) => {
-                this.log.error(error);
-                return HandleError.handleError(error, resp);
-            });
-    };
-
     update = (req: Request, resp: Response) => {
         const id = req.params.id;
         if (!id || !CommonDto.validateId(id)) return resp.status(StatusCodes.BAD_REQUEST).json({error: "invalid user id"});

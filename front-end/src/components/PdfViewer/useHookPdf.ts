@@ -1,13 +1,13 @@
 import {ChangeEvent, useState} from "react";
 
 export interface PdfViewerProps {
-    file?: string;
+    resource?: string;
     load?: boolean;
 }
-export default function ({file}: PdfViewerProps){
+export default function ({resource}: PdfViewerProps){
 
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [source, setSource] = useState(file);
+    const [source, setSource] = useState(resource);
     const [numPages, setNumPages] = useState<number>(0);
     const onLoad = (e: ChangeEvent<HTMLInputElement>) => {
         setNumPages(0);

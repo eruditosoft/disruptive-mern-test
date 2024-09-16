@@ -17,6 +17,7 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
             const newResource = await ResourceModel.create({
                 name, content, category, userId, topicId
             });
+
             return ResourceMapper.entityFromObject(newResource);
         } catch (error) {
 
@@ -27,7 +28,7 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
     async findById(resourceId: string): Promise<ResourceEntity> {
         try {
             const resource = await ResourceModel.findById(resourceId);
-            if (!resource) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "resource not register", true);
+            if (!resource) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "resource not Register", true);
             return ResourceMapper.entityFromObject(resource);
         } catch (error) {
             CommonError.handleError(error);
@@ -72,11 +73,10 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
 
     async update(id: string, name: string): Promise<ResourceEntity> {
         try {
-            const categoryUpdate = await ResourceModel.findByIdAndUpdate(id, {$set: {name}});
-            return ResourceMapper.entityFromObject(categoryUpdate as StringAny);
+            const resourceUpdate = await ResourceModel.findByIdAndUpdate(id, {$set: {name}});
+            return ResourceMapper.entityFromObject(resourceUpdate as StringAny);
         } catch (error) {
             CommonError.handleError(error);
         }
     }
-
 }

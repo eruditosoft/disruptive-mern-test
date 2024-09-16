@@ -59,7 +59,7 @@ export class MongoCategoryDatasourceImpl implements CategoryDatasource {
     async findById(categoryId: string): Promise<CategoryEntity> {
         try {
             const category = await CategoryModel.findById(categoryId);
-            if (!category) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "category not register", true);
+            if (!category) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "category not Register", true);
             return CategoryMapper.entityFromObject(category);
         } catch (error) {
             CommonError.handleError(error);

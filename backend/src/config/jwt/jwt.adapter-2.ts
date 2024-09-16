@@ -75,7 +75,7 @@ export class JwtAdapter {
         const userId = req.headers["user_id"]
         if (!userRole) {
             if (req.method === "POST" && req.originalUrl.includes(endpoints.findAll)) {
-                this.log.info("User not register");
+                this.log.info("User not Register");
                 next();
                 return;
             } else {

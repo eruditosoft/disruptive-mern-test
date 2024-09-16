@@ -5,7 +5,6 @@ import Logger from '@shared/domain/Logger';
 import {Server} from '@presentation/server.express';
 import {AppRoutes} from '@presentation/routes';
 
-
 (() => main())();
 
 async function main() {

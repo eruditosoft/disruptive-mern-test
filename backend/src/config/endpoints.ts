@@ -5,10 +5,14 @@ const endpoints = {
     id: "/:id",
     root: "/",
     findAll: `/find`,
+    upload: `${envs.VERSION_API}upload`,
     login: `${envs.VERSION_API}login`,
+    static: {
+        root: `${envs.VERSION_API}static`,
+        get: "/:src/:name"
+    },
     user: {
         root: `${envs.VERSION_API}user`,
-
     },
     category: {
         root: `${envs.VERSION_API}category`,

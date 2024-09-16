@@ -47,6 +47,7 @@ export class ResourceRouter {
         router.delete(endpoints.id, controller.delete);
         router.post(endpoints.findAll, QueryMiddleware.setDefaultQuery, controller.findAll);
         router.put(endpoints.id, ValidateMiddleware.validateUpdateName, controller.udpate);
+
         return router;
 
     }

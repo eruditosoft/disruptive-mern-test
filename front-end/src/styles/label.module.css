@@ -1,4 +1,4 @@
-.title {
+.title, .subtitle {
     font-weight: bold;
     font-family: Roboto, cursive;
     font-size: 2rem;
@@ -11,5 +11,8 @@
 }
 .text_right {
     text-align: right;
+}
+.subtitle {
+    font-size: 1.5rem;
 }
 

@@ -64,24 +64,6 @@ export class ResourceController {
       return HandleError.handleError( error, resp );
     } );
   };
-
-/*  udpate = ( req: Request, resp: Response ) => {
-    const id = req.params.id;
-    const { name } = req.body;
-    this.log.info( `Initial call endpoint ${ endpoints.user.root }`, req.body );
-    return this.useCase.update( id, name! )
-        .then( ( user ) => {
-          this.log.info( `success complete call endpoint ${ endpoints.user.root }`, {
-            id, method: 'PUT'
-          } );
-          return resp.json( user ).status( StatusCodes.OK );
-        } )
-        .catch( ( error ) => {
-          this.log.error( error );
-          return HandleError.handleError( error, resp );
-        } );
-
-  };*/
   udpate = ( req: Request, resp: Response ) => {
     const id = req.params.id;
     const { name } = req.body;

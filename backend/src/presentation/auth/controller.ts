@@ -5,6 +5,7 @@ import {HandleError} from '@presentation/handle.error';
 import endpoints from '@config/endpoints';
 import {UseCaseAuth} from "@useCases/auth.usecase";
 
+
 export class AuthController {
     constructor(private readonly log: Logger, private readonly useCase: UseCaseAuth) {
     }
@@ -17,7 +18,8 @@ export class AuthController {
                 this.log.info(`success complete call endpoint ${endpoints.user.root}/login`, {
                     email, method: 'POST'
                 });
-                return resp.json({token}).status(StatusCodes.OK);
+                resp.cookie("token", token, {maxAge: 900000, httpOnly: true})
+                return resp.status(StatusCodes.OK).json({token});
             })
             .catch((error) => {
                 this.log.error(error);

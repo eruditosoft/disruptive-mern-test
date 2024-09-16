@@ -6,16 +6,14 @@ import {TopicMapper} from '@infrastructure/mappers/topic.mapper';
 import {CommonError} from '@shared/domain/CommonError';
 import {StatusCodes} from 'http-status-codes';
 import {QueryDto} from "@domain/dtos/query/query.dto";
-import {query} from "express";
 import {StringAny} from "@shared/domain/KeyValue";
-import {Promise} from "mongoose";
-import {undefined} from "zod";
+
 
 export class MongoTopicDatasourceImpl implements TopicDatasource {
     async delete(id: string): Promise<void> {
         try {
             const topicDeleted = await TopicModel.findByIdAndDelete(id);
-            if (!topicDeleted) throw new CommonError("topic not exist", StatusCodes.BAD_REQUEST, "topic not deleted success", true);
+            if (!topicDeleted) throw new CommonError("Resource not exist", StatusCodes.BAD_REQUEST, "Resource not deleted success", true);
             return;
         } catch (error) {
             CommonError.handleError(error);
@@ -26,7 +24,7 @@ export class MongoTopicDatasourceImpl implements TopicDatasource {
         const {name, image, categories} = input;
         try {
             const existTopic = await TopicModel.findOne({name});
-            if (existTopic) throw new CommonError("Invalid request name topic exists", StatusCodes.BAD_REQUEST, "Invalid Request, name topic exists", true);
+            if (existTopic) throw new CommonError("Invalid request name Resource exists", StatusCodes.BAD_REQUEST, "Invalid Request, name Resource exists", true);
             const newTopic = await TopicModel.create({
                 name, image, categories,
             });
@@ -40,7 +38,7 @@ export class MongoTopicDatasourceImpl implements TopicDatasource {
     async findById(topicId: string): Promise<TopicEntity> {
         try {
             const topic = await TopicModel.findById(topicId);
-            if (!topic) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "topic not register", true);
+            if (!topic) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "Resource not Register", true);
             return TopicMapper.entityFromObject(topic);
         } catch (error) {
             CommonError.handleError(error);

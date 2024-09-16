@@ -1,7 +1,7 @@
 import {Document, Page, pdfjs} from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import useHookPdf, {PdfViewerProps} from "@/views/topic/pdfViewer/useHookPdf.ts";
+import useHookPdf, {PdfViewerProps} from "@/components/PdfViewer/useHookPdf.ts";
 import stylesButton from '@/styles/button.module.css';
 import st from './pdfViewer.module.css';
 
@@ -12,11 +12,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url,
 ).toString();
 
-export default function PdfViewer({file, load}: PdfViewerProps) {
-    const {source, numPages, pageNumber, setPageNext, setPageBack, onLoad, onDocumentLoadSuccess} = useHookPdf({file});
+export default function PdfViewer({resource, load}: PdfViewerProps) {
+    const {source, numPages, pageNumber, setPageNext, setPageBack, onLoad, onDocumentLoadSuccess} = useHookPdf({resource: resource});
     return (
         <div>
-            {load && <label htmlFor="file-input" className={st.input_load_label}>
+            {load &&
+                <label htmlFor="file-input" className={st.input_load_label}>
                 <span className={stylesButton.btn_link}>Cargar Archivo</span>
                 <FileDownload color="success"/>
                 <input

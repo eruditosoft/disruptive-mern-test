@@ -11,7 +11,7 @@ export class MongoUserDatasourceImpl implements UserDatasource {
   async findById( userId: string ): Promise<UserEntity> {
     try {
       const user = await UserModel.findById( userId );
-      if ( !user ) throw new CommonError( "Id not exist", StatusCodes.BAD_REQUEST, "user not register", true );
+      if ( !user ) throw new CommonError( "Id not exist", StatusCodes.BAD_REQUEST, "user not Register", true );
       return UserMapper.entityFromObject( user );
     } catch ( error ) {
       CommonError.handleError( error );
@@ -20,7 +20,7 @@ export class MongoUserDatasourceImpl implements UserDatasource {
   async findByEmail( email: string ): Promise<UserEntity> {
     try {
       const user = await UserModel.findOne( { email } );
-      if ( !user ) throw new CommonError( "Email not exist", StatusCodes.BAD_REQUEST, "user not register", true );
+      if ( !user ) throw new CommonError( "Email not exist", StatusCodes.BAD_REQUEST, "user not Register", true );
       return UserMapper.entityFromObject( user );
     } catch ( error ) {
       CommonError.handleError( error );
