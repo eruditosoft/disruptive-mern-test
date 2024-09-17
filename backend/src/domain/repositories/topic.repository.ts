@@ -1,6 +1,6 @@
 import {TopicRegisterDto} from '@domain/dtos/topic/topic.register.dto';
 import {TopicEntity} from '@domain/entity/topic/topic.entity';
-import {QueryDto} from "@domain/dtos/query/query.dto ";
+import {QueryDto} from "@domain/dtos/query/query.dto";
 import {StringAny} from "@shared/domain/KeyValue";
 
 export abstract class TopicRepository {

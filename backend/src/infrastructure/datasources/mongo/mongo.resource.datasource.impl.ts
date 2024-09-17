@@ -9,13 +9,13 @@ import {StringAny} from "@shared/domain/KeyValue";
 import {QueryDto} from "@domain/dtos/query/query.dto";
 
 export class MongoResourceDatasourceImpl implements ResourceDatasource {
-    async register(input: ResourceRegisterDto, topicId: string, userId: string): Promise<ResourceEntity> {
+    async register(input: ResourceRegisterDto, topicId: string, userId: string, author: string): Promise<ResourceEntity> {
         const {name, content, category} = input;
         try {
             const nameExist = await ResourceModel.findOne({name});
             if (nameExist) throw new CommonError("Invalid request name resource exists", StatusCodes.BAD_REQUEST, "Invalid Request, name category exists", true);
             const newResource = await ResourceModel.create({
-                name, content, category, userId, topicId
+                name, content, category, userId, topicId, author
             });
 
             return ResourceMapper.entityFromObject(newResource);

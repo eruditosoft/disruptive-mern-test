@@ -1,34 +1,27 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import labelStyles from "@/styles/label.module.css";
 import st from './styles.module.css';
 import Modal from "@/components/Modal/Modal.tsx";
 import PdfViewer from "@/components/PdfViewer/PdfViewer.tsx";
+import RootContext from "@/context/RootContext.tsx";
+import {ResourceProps} from "@/data/Props.ts";
 
-interface ResourceProps {
-    title: string;
-    category: string;
-    author: string;
-    created: string;
-    resource?: string;
-    disabled: boolean;
-}
-
-export default function Resource({title, category, author, created, resource, disabled}: ResourceProps) {
+export default function Resource({title, category, author, created, resource}: ResourceProps) {
+    const root = useContext(RootContext);
     const classes = {
-        content: disabled ? `${st.content_root}` : `${st.content_root} ${st.content_root_enabled}`
+        content: !root?.user ? `${st.content_root}` : `${st.content_root} ${st.content_root_enabled}`
     }
     const [open, setOpen] = useState(false);
-
     const handleClickModal = () => {
-        if (disabled) return;
+        if (!root?.user) return;
         setOpen(!open)
     }
     return (
         <>
             <div role="button" onClick={handleClickModal} className={classes.content}>
                 <span className={`${labelStyles.subtitle} ${labelStyles.text_center} ${st.title}`}>{title}</span>
-                <span>categoria: {category}</span>
-                <span>author: {author}</span>
+                <span>Categoria: {category}</span>
+                <span>Autor: {author}</span>
                 <span>Fecha de creacion: {created}</span>
             </div>
             {

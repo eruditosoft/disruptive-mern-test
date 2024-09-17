@@ -9,8 +9,8 @@ export class ResourceRepositoryImpl implements ResourceRepository {
     constructor(private readonly datasource: ResourceDatasource) {
     }
 
-    register(input: ResourceRegisterDto, categoryId: string, userId: string): Promise<ResourceEntity> {
-        return this.datasource.register(input, categoryId, userId);
+    register(input: ResourceRegisterDto, topicId: string, userId: string, author: string): Promise<ResourceEntity> {
+        return this.datasource.register(input, topicId, userId, author);
     }
 
     findById(resourceId: string): Promise<ResourceEntity> {

@@ -1,4 +1,5 @@
 import {ROLE} from "@/data/enum.ts";
+import {OnClickButton} from "@/data/Props.ts";
 
 export interface ActionFunctionSignInParams {
     email: string;
@@ -10,7 +11,7 @@ export type ToCallFunction = ({email, alias}: ActionFunctionSignInParams) => voi
 export interface SignInProps {
     toBack?: () => void;
     toCall?: ToCallFunction;
-    closeModal: () => void;
+    closeModal: OnClickButton<string>;
 }
 export interface User extends ActionFunctionSignInParams{
     id?:string;

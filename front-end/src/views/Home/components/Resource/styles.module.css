@@ -6,8 +6,8 @@
     min-height: 10rem;
     box-shadow: -4px 6px 15px -5px rgb(122, 186, 122);
     padding: .5rem;
-
 }
+
 .content_root_enabled{
     cursor: pointer;
 }

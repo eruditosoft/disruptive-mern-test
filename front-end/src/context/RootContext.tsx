@@ -1,33 +1,32 @@
 import React, {createContext, useState} from 'react';
+import {decodeToken} from "@/helpers/decodeToken.ts";
+import {UserContext} from "@/data/Props.ts";
 
-interface UserType {
-    role: string;
-    alias: string;
-    id: string;
+interface RootContextValue {
+    user: UserContext | null;
+    setUserData: (token: string) => void;
+    clearUserData: () => void;
 }
 
-const RootContext = createContext<UserType | null>(null);
+const RootContext = createContext<RootContextValue | null>(null);
 
 export const RootProvider = ({children}: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<UserType | null>(() => {
-        const actual = localStorage.getItem('user')
-        if (actual) return JSON.parse(actual);
+    const [user, setUser] = useState<UserContext | null>(() => {
+        const actual = sessionStorage.getItem('user');
+        if (actual != undefined || actual != null) return JSON.parse(actual as string);
         return null;
     });
-
-    const setUserData = (newUser: UserType) => {
-        setUser(newUser);
-        localStorage.setItem('user', JSON.stringify(newUser));
+    const setUserData = async (token: string) => {
+        const {alias, userId, role, email, exp} = decodeToken(token);
+        //sessionStorage.setItem('user', JSON.stringify({alias, token, userId, role, exp, email}));
+        setUser({alias, token, userId, role, exp, email});
     };
 
     const clearUserData = () => {
         setUser(null);
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
     };
-
     return (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         <RootContext.Provider value={{user, setUserData, clearUserData}}>
             {children}
         </RootContext.Provider>

@@ -1,5 +1,7 @@
 import {CATEGORIES} from '@shared/enum/categories';
 import mongoose, {Schema} from "mongoose";
+import {string} from "zod";
+import {Format} from "@config/format";
 
 
 const resourceSchema = new Schema({
@@ -24,6 +26,9 @@ const resourceSchema = new Schema({
         type: String,
         required: [true, "resource name is required"],
         unique: true,
+    },
+    author: {
+        type: String,
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

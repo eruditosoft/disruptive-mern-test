@@ -4,7 +4,7 @@ import inputStyles from "@/styles/input.module.css";
 import styles from "@/styles/button.module.css";
 import {SignInProps} from "@/views/SignIn/interfaces.ts";
 import useHookRegister from "@/views/SignIn/components/Register/useHookRegister.ts";
-import SkeletonRegister from "@/components/Skeleton/SkeletonRegister.tsx";
+import SkeletonAuth from "@/views/SignIn/components/Skeleton/SkeletonAuth.tsx";
 import CheckInput from "@/components/Input/CheckInput.tsx";
 import {ROLE} from "@/data/enum.ts";
 
@@ -18,12 +18,13 @@ export default function Register({toBack, closeModal}: SignInProps) {
         onChangeEmail,
         loading,
         handleChangeRole,
-        role
+        role,
+        error,
     } = useHookRegister(closeModal);
     const register = async () => {
         await toRegister({email, alias, role})
     }
-    if (loading) return <SkeletonRegister/>
+    if (loading) return <SkeletonAuth/>
     return (<div className={st.container_flex}>
 
         <span className={`${labelStyles.title} ${labelStyles.text_center}`}>Registrarse</span>
@@ -42,5 +43,6 @@ export default function Register({toBack, closeModal}: SignInProps) {
             </button>
         </div>
         <button onClick={toBack} className={styles.btn_link}>Iniciar sesion</button>
+        {error && <span className={`${labelStyles.error} ${labelStyles.text_right}`}>{error}</span>}
     </div>);
 }

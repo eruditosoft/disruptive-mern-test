@@ -9,5 +9,6 @@ export class ResourceEntity {
     public content: string,
     public userId: string,
     public topicId: string,
+    public author: string,
   ) { }
 }

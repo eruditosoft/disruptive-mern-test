@@ -16,6 +16,10 @@ footer {
   width: 100%;
   box-sizing: border-box;
 }
+ .header_logged {
+   align-items: end;
+   padding-right: 2rem;
+ }
 
 main {
   overflow-y: auto;
@@ -30,5 +34,6 @@ footer {
   display: flex;
   justify-content: center;
 }
+
 
 

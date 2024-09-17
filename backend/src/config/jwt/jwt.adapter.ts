@@ -36,11 +36,11 @@ export class JwtAdapter {
         }
     }
 
-    static createToken = (role: ROLE, alias: string, email: string, user_id: string): string => jwt.sign({
+    static createToken = (role: ROLE, alias: string, email: string, userId: string): string => jwt.sign({
         email,
         role,
         alias,
-        user_id
+        userId
     }, envs.encrypt.SECRET_KEY, {expiresIn: envs.encrypt.EXPIRATION});
 
     static validateRoles(req: Request, res: Response, next: Function) {

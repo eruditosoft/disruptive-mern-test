@@ -3,5 +3,6 @@ export enum CATEGORIES {
     TEXT = "TEXT",
     IMAGE = "IMAGE",
     VIDEO = "VIDEO",
-    DEFAULT = "DEFAULT",
+    URL = "URL",
+
 }

@@ -23,5 +23,6 @@ export const envs = {
     CHUNK: get( "CHUNK" ).asInt(),
     MAX_CHUNK: get( "MAX_CHUNK" ).asInt(),
   },
-  PATH_FILES: getValue("PATH_FILES")
+  PATH_FILES: getValue("PATH_FILES"),
+  FORMAT_DATE: getValue("FORMAT_DATE")
 };

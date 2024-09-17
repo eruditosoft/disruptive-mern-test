@@ -1,12 +1,12 @@
-import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import App from './App.tsx'
 import {RootProvider} from "@/context/RootContext.tsx";
+import {ToastProvider} from "@/context/ToastContext.tsx";
 
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <RootProvider>
+    <RootProvider>
+        <ToastProvider>
             <App/>
-        </RootProvider>
-    </StrictMode>,
+        </ToastProvider>
+    </RootProvider>
 )
