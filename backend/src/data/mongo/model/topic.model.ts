@@ -10,7 +10,7 @@ const topicSchema = new Schema({
     },
     categories: {
         type: [String],
-        required: [true, "category type is required"],
+        required: [true, "Category type is required"],
         enum: CATEGORIES,
     },
     createdAt: {

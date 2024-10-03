@@ -7,7 +7,7 @@ import {Format} from "@config/format";
 const resourceSchema = new Schema({
     category: {
         type: String,
-        required: [true, "category type is required"],
+        required: [true, "Category type is required"],
         enum: CATEGORIES,
     },
     topicId: {

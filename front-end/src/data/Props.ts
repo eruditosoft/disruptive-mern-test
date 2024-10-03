@@ -1,5 +1,5 @@
-import {MouseEvent} from "react";
-import {ROLE} from "@/data/enum.ts";
+import React, {MouseEvent} from "react";
+import {CATEGORIES, ROLE} from "@/data/enum.ts";
 
 export type  OnClickButton<T> = (event: MouseEvent<HTMLButtonElement>, data?: T) => void;
 
@@ -17,10 +17,19 @@ export interface UserResponse  {
 export interface UserContext extends  UserResponse{
     token: string;
 }
-export interface ResourceProps {
+
+export interface BodyResourceProps {
     title: string;
-    category: string;
-    author: string;
+    category: CATEGORIES;
     created: string;
+    loading?: boolean;
+    author: string;
+    children?: React.ReactNode;
+    open?:boolean;
+}
+
+export interface ResourceProps extends BodyResourceProps{
     resource?: string;
+    id: string;
+    topicId: string;
 }

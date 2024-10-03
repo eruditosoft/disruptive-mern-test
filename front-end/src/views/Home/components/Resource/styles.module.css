@@ -24,5 +24,24 @@ img {
     width: 100%;
     height: 50%;
     object-fit: contain;
+}
 
+.content_detail {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.margin_bottom_2rem {
+    margin-bottom: 2rem;
+}
+.content_detail_resource, .content_detail_resource_p {
+    max-width: 25rem;
+    max-height: 25rem;
+
+}
+.content_detail_resource_p {
+    overflow-y: scroll;
+    text-align: justify;
+    padding: .5rem;
 }

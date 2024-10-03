@@ -15,7 +15,7 @@ export class ValidateCategory {
         }
         if (!CommonDto.validateId(id as string)) {
             log.error("invalid format id");
-            return resp.status(StatusCodes.BAD_REQUEST).json({error: "Invalid format header id"});
+            return resp.status(StatusCodes.BAD_REQUEST).json({error: "Invalid format Header id"});
         }
         next();
         return;

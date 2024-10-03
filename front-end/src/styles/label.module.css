@@ -1,4 +1,4 @@
-.title, .subtitle {
+.title, .subtitle, .label {
     font-weight: bold;
     font-family: Roboto, cursive;
     font-size: 2rem;
@@ -12,6 +12,9 @@
 .text_right {
     text-align: right;
 }
+.text_left {
+    text-align: left;
+}
 .subtitle {
     font-size: 1.5rem;
 }
@@ -20,4 +23,9 @@
     color: #CD5C5CFF;
     font-weight: bold;
     font-size: 1.2rem;
+}
+.label {
+    font-weight: normal;
+    font-size: 1rem;
+    color: #fff;
 }

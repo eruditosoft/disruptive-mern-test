@@ -7,18 +7,16 @@ import {ResourceRegisterDto} from '@domain/dtos/resource/topic.register.dto';
 import {ResourceEntity} from "@domain/entity/resource/resource.entity";
 import {QueryDto} from "@domain/dtos/query/query.dto";
 import {CATEGORIES} from "@shared/enum/categories";
+import {CommonError} from "@shared/domain/CommonError";
+import {StatusCodes} from "http-status-codes";
 
 export class UseCaseResourceImpl implements UseCaseResource {
     constructor(private readonly categoryRepository: CategoryRepository, private readonly userRepository: UserRepository, private readonly topicRepository: TopicRepository, private readonly resourceRepository: ResourceRepository) {
     }
 
     async register(input: ResourceRegisterDto, topicId: string, userId: string): Promise<ResourceEntity> {
-        const [topic, user ] = await Promise.all([this.topicRepository.findById(topicId), this.userRepository.findById(userId)]);
-        if (![CATEGORIES.URL, CATEGORIES.TEXT].includes(input.category)) {
-            const response = await this.resourceRepository.register(input, topicId, userId, user.alias);
-            const content = `${topicId}/${response.id}`;
-            return {...response, content: content};
-        }
+        const [topic, user] = await Promise.all([this.topicRepository.findById(topicId), this.userRepository.findById(userId)]);
+        if (!topic.categories.includes(input.category)) throw new CommonError("The Category does not belong to the types of topic", StatusCodes.BAD_REQUEST, "invalid type Category", false);
         return await this.resourceRepository.register(input, topicId, userId, user.alias);
     }
 

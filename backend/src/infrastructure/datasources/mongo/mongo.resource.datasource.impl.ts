@@ -13,7 +13,7 @@ export class MongoResourceDatasourceImpl implements ResourceDatasource {
         const {name, content, category} = input;
         try {
             const nameExist = await ResourceModel.findOne({name});
-            if (nameExist) throw new CommonError("Invalid request name resource exists", StatusCodes.BAD_REQUEST, "Invalid Request, name category exists", true);
+            if (nameExist) throw new CommonError("Invalid request name resource exists", StatusCodes.BAD_REQUEST, "Invalid Request, name Category exists", true);
             const newResource = await ResourceModel.create({
                 name, content, category, userId, topicId, author
             });

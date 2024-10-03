@@ -1,4 +1,4 @@
-import {StatusCodes} from 'http-status-codes';
+import {StatusCodes} from "http-status-codes";
 
 export class CommonError extends Error {
     public readonly name: string;
@@ -12,14 +12,11 @@ export class CommonError extends Error {
         isOperational: boolean,
     ) {
         super(description);
-
         Object.setPrototypeOf(this, new.target.prototype);
         this.name = name;
         this.httpCode = httpCode;
         this.isOperational = isOperational;
-
         Error.captureStackTrace(this);
-
     }
 
     static handleError(error: unknown): never {

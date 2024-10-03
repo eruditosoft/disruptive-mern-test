@@ -23,3 +23,9 @@
         margin-top: 1rem
     }
 }
+
+.content_pdf {
+    max-height: 20px;
+    max-width: 20px;
+    background-color: red;
+}

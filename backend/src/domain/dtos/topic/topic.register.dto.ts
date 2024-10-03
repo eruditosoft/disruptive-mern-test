@@ -11,8 +11,8 @@ export const topicRegisterSchema = z.object({
     categories: z.array(
         z.nativeEnum(CATEGORIES),
         {
-            required_error: 'category is required.',
-            invalid_type_error: 'category must be an array of enum category'
+            required_error: 'Category is required.',
+            invalid_type_error: 'Category must be an array of enum Category'
         }
     ),
     image: z.string(),

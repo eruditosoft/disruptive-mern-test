@@ -5,12 +5,12 @@ import mongoose, {Schema} from "mongoose";
 const categorySchema = new Schema({
     name: {
         type: String,
-        required: [true, "category name is required"],
+        required: [true, "Category name is required"],
         unique: true,
     },
     type: {
         type: String,
-        required: [true, "category type is required"],
+        required: [true, "Category type is required"],
         enum: CATEGORIES,
     },
     creator: {

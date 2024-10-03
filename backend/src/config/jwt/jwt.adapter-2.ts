@@ -15,7 +15,7 @@ export class JwtAdapter {
         const token = authHeader && authHeader.split(' ')[1];
         if (!token) return res.status(StatusCodes.BAD_REQUEST).json({
             message: "Token is required or expired",
-            description: "Add header Authorization: bearer some_token"
+            description: "Add Header Authorization: bearer some_token"
         });
         try {
             const user = jwt.verify(token?.replaceAll("\"", ""), envs.encrypt.SECRET_KEY);
@@ -27,7 +27,7 @@ export class JwtAdapter {
             log.error("Token is required or expired", error);
             return res.status(StatusCodes.BAD_REQUEST).json({
                 message: "Token invalid or expired",
-                description: "Add header Authorization: bearer some_token"
+                description: "Add Header Authorization: bearer some_token"
             });
         }
     }
@@ -61,7 +61,7 @@ export class JwtAdapter {
         log.error("Token is required or expired");
         return res.status(StatusCodes.BAD_REQUEST).json({
             message: "Token invalid or expired",
-            description: "Add header Authorization: bearer some_token"
+            description: "Add Header Authorization: bearer some_token"
         });
         return;
     }*/

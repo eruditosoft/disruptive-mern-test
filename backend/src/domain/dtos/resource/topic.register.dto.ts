@@ -14,7 +14,7 @@ export const resourceRegisterSchema = z.object({
     }),
     category: z.nativeEnum(CATEGORIES, {
         required_error: "Category is required",
-        invalid_type_error: "Invalid type category"
+        invalid_type_error: "Invalid type Category"
     }),
 });
 

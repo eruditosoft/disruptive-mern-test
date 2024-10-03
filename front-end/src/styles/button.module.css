@@ -21,9 +21,8 @@
     font-size: 1.1rem;
     background-color: #ffffff;
     transition: 0.3s;
-
-
 }
+
 .btn_primary {
     border: 0;
 }
@@ -31,7 +30,6 @@
 .btn_primary:hover {
     color: green;
     border: 1px solid green;
-
 }
 
 .btn_danger {
@@ -55,12 +53,21 @@
 }
 .btn_link:hover {
     color: #7aba7a;
-
 }
+
 .btn_logout:hover {
     color: #000000;
     background-color: #ffffff;
     font-size: 1.1rem;
     font-weight: bolder;
     transition: 0.6s;
+}
+
+.btn_selected, .btn_selected:disabled  {
+    color: #7aba7a;
+    background-color: transparent;
+    border: 0;
+    font-size: 1rem;
+    font-weight: bolder;
+
 }

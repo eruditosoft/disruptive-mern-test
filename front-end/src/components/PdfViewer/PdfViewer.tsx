@@ -30,7 +30,7 @@ export default function PdfViewer({resource, load}: PdfViewerProps) {
             {source &&
                 <>
                     <Document file={source} onLoadSuccess={onDocumentLoadSuccess}>
-                        <Page pageNumber={pageNumber}/>
+                        <Page height={400} width={400} pageNumber={pageNumber}/>
                     </Document>
                     {numPages !== 1 &&
                         <div className={st.control}>

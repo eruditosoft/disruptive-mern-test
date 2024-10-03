@@ -2,7 +2,7 @@ import React, {createContext, useState} from 'react';
 import {decodeToken} from "@/helpers/decodeToken.ts";
 import {UserContext} from "@/data/Props.ts";
 
-interface RootContextValue {
+export interface RootContextValue {
     user: UserContext | null;
     setUserData: (token: string) => void;
     clearUserData: () => void;
@@ -26,6 +26,7 @@ export const RootProvider = ({children}: { children: React.ReactNode }) => {
         setUser(null);
         sessionStorage.removeItem('user');
     };
+    console.log(user);
     return (
         <RootContext.Provider value={{user, setUserData, clearUserData}}>
             {children}

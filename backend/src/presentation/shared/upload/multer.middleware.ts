@@ -17,7 +17,7 @@ function destination(req: Request, file: Express.Multer.File, cb: (error: Error 
 
 function filename(req: Request, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) {
     const mime = file.mimetype.split("/")[1];
-    const name = req.headers.resource_name ? `${req.headers.resource_name}.${mime}` : file.originalname;
+    const name = req.headers.resource_name ? `${req.headers.resource_name}` : file.originalname;
     cb(null, name)
 }
 

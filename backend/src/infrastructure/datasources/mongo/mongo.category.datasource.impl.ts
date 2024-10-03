@@ -22,7 +22,7 @@ export class MongoCategoryDatasourceImpl implements CategoryDatasource {
     async delete(id: string): Promise<void> {
         try {
             const userDeleted = await CategoryModel.findByIdAndDelete(id);
-            if (!userDeleted) throw new CommonError("Category id not exist", StatusCodes.BAD_REQUEST, "category not deleted success", true);
+            if (!userDeleted) throw new CommonError("Category id not exist", StatusCodes.BAD_REQUEST, "Category not deleted success", true);
             return;
         } catch (error) {
             CommonError.handleError(error);
@@ -46,7 +46,7 @@ export class MongoCategoryDatasourceImpl implements CategoryDatasource {
         const {name, type} = categoryRegister;
         try {
             const nameExist = await CategoryModel.findOne({name});
-            if (nameExist) throw new CommonError("Invalid request name category exists", StatusCodes.BAD_REQUEST, "Invalid Request, name category exists", true);
+            if (nameExist) throw new CommonError("Invalid request name Category exists", StatusCodes.BAD_REQUEST, "Invalid Request, name Category exists", true);
             const newCategory = await CategoryModel.create({
                 type, name, creator,
             });
@@ -59,7 +59,7 @@ export class MongoCategoryDatasourceImpl implements CategoryDatasource {
     async findById(categoryId: string): Promise<CategoryEntity> {
         try {
             const category = await CategoryModel.findById(categoryId);
-            if (!category) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "category not Register", true);
+            if (!category) throw new CommonError("Id not exist", StatusCodes.BAD_REQUEST, "Category not Register", true);
             return CategoryMapper.entityFromObject(category);
         } catch (error) {
             CommonError.handleError(error);
